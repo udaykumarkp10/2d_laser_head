@@ -68,11 +68,11 @@ void getAcceleration(char axis) {
     }
 
     // Convert the raw value to g and apply offset encoding to store as uint32_t
-    accel_g = ((raw_accel * ADXL345_SCALE_FACTOR_4G) * ACCEL_SCALING_FACTOR);
+    int32_t accel_g = ((raw_accel * ADXL345_SCALE_FACTOR_4G) * ACCEL_SCALING_FACTOR);
 
     TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
     Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
-    Etc_Buffer_In.LANFloat[1] = (float)accel_g;
+    Etc_Buffer_In.LANInt[1] = accel_g;
     accelerometer_flag = false;
     adxl_sent_count++;
 }

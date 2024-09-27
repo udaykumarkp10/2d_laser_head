@@ -93,7 +93,7 @@ uint16_t etc_analog_output_2;
 uint16_t etc_analog_output_3;
 
 // Send variables to EtherCAt
-uint32_t TxData = 0;
+int32_t TxData = 0;
 uint16_t TxStatus = 0;
 
 // Pcap variable of structure
@@ -106,8 +106,6 @@ uint8_t get_Execution_count = 0;
 uint8_t set_sent_count = 0;
 uint8_t get_sent_count = 0;
 uint8_t adxl_sent_count = 0;
-
-int32_t accel_g;
 
 
 /* USER CODE END PV */
@@ -522,7 +520,8 @@ int main(void)
 	  } else if (get_command_flag) {
 		  switch(etc_new_command) {
 			case 50:
-				TxData = getEncoderResolution(&tmc4671_controller);
+				TxData = 1000;
+				//TxData = getEncoderResolution(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -540,7 +539,8 @@ int main(void)
 				break;
 
 			case 53:
-				TxData = getSoftPositiveLimit(&tmc4671_controller);
+				TxData = -1000;
+				//TxData = getSoftPositiveLimit(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -707,7 +707,7 @@ int main(void)
 			  set_sent_count++;
 			  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 			  Etc_Buffer_In.LANLong[0] = ((uint32_t)TxStatus << 16) | (uint32_t)etc_new_command;
-			  Etc_Buffer_In.LANFloat[1] = (float)TxData;
+			  Etc_Buffer_In.LANInt[1] = TxData;
 			  continuous_tx_flag = true;  // Mark that data has been sent
 		  }
 	  }
@@ -716,7 +716,7 @@ int main(void)
 		  get_sent_count++;
 			TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 			Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
-			Etc_Buffer_In.LANLong[1] = (int32_t)TxData;
+			Etc_Buffer_In.LANInt[1] = TxData;
 	  }
   }
   /* USER CODE END 3 */

@@ -178,8 +178,8 @@ typedef union{
 //process buffer 1 dword
 typedef union{
 	uint8_t LANByte[32];
-	uint16_t LANWord[16];
 	uint32_t LANLong[8];
+	int32_t LANInt[8];
 	float LANFloat[8];
 } PROCBUFFER;
 
