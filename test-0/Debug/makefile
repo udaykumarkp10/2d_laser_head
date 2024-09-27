@@ -60,8 +60,8 @@ all: main-build
 main-build: test-0.elf secondary-outputs
 
 # Tool invocations
-test-0.elf test-0.map: $(OBJS) $(USER_OBJS) /home/udaykumar/Desktop/EtherCAT-2d/test-0(1)/test-0/STM32F411CEUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "test-0.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/udaykumar/Desktop/EtherCAT-2d/test-0(1)/test-0/STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test-0.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+test-0.elf test-0.map: $(OBJS) $(USER_OBJS) C:\Users\udayk\git\2d_laser_head\test-0\STM32F411CEUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "test-0.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\udayk\git\2d_laser_head\test-0\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test-0.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -214,7 +214,7 @@ int main(void)
 	  /*-------------------------- RECEIVED DATA FROM ETHERCAT ----------------------------------------*/
 
 	  etc_new_command = (uint16_t)Etc_Buffer_Out.LANLong[0];
-	  etc_new_data = Etc_Buffer_Out.LANLong[1];
+	  etc_new_data = (double) Etc_Buffer_Out.LANFloat[1];
 
 	  if (((etc_new_command >= 0) && (etc_new_command <= 19)) || ((etc_new_command >= 100) && (etc_new_command <= 105))) {
 	      set_command_flag = true;
