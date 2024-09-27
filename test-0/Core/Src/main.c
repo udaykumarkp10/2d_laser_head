@@ -705,7 +705,7 @@ int main(void)
 			  set_sent_count++;
 			  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 			  Etc_Buffer_In.LANLong[0] = ((uint32_t)TxStatus << 16) | (uint32_t)etc_new_command;
-			  Etc_Buffer_In.LANLong[1] = TxData;
+			  Etc_Buffer_In.LANFloat[1] = (float)TxData;
 			  continuous_tx_flag = true;  // Mark that data has been sent
 		  }
 	  }
@@ -714,7 +714,7 @@ int main(void)
 		  get_sent_count++;
 			TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 			Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
-			Etc_Buffer_In.LANLong[1] = TxData;
+			Etc_Buffer_In.LANFloat[1] = (float)TxData;
 	  }
   }
   /* USER CODE END 3 */

@@ -72,7 +72,7 @@ void getAcceleration(char axis) {
 
     TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
     Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
-    Etc_Buffer_In.LANLong[1] =(uint32_t) accel_g;
+    Etc_Buffer_In.LANFloat[1] = (float)accel_g;
     accelerometer_flag = false;
     adxl_sent_count++;
 }
