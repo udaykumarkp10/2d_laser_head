@@ -68,7 +68,7 @@ void getAcceleration(char axis) {
     }
 
     // Convert the raw value to g and apply offset encoding to store as uint32_t
-    int32_t accel_g = (int32_t)((raw_accel * ADXL345_SCALE_FACTOR_4G) * ACCEL_SCALING_FACTOR);
+    accel_g = ((raw_accel * ADXL345_SCALE_FACTOR_4G) * ACCEL_SCALING_FACTOR);
 
     TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
     Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;

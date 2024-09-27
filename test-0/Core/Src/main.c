@@ -107,6 +107,8 @@ uint8_t set_sent_count = 0;
 uint8_t get_sent_count = 0;
 uint8_t adxl_sent_count = 0;
 
+int32_t accel_g;
+
 
 /* USER CODE END PV */
 

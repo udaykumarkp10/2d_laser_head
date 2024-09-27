@@ -126,6 +126,7 @@ extern bool accelerometer_flag;
 //Test
 
 extern uint8_t adxl_sent_count;
+extern int32_t accel_g;
 
 
 bool Adxl345_init(void);
