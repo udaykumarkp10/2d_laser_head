@@ -1,0 +1,8 @@
+../Core/Src/br24l64f.c:10:6:EEPROM_Write	32	static
+../Core/Src/br24l64f.c:16:6:EEPROM_Read	32	static
+../Core/Src/br24l64f.c:21:6:float2Bytes	24	static
+../Core/Src/br24l64f.c:34:7:bytes2Float	32	static
+../Core/Src/br24l64f.c:48:6:uInt2Bytes	24	static
+../Core/Src/br24l64f.c:61:10:bytes2uInt	32	static
+../Core/Src/br24l64f.c:75:6:sInt2Bytes	24	static
+../Core/Src/br24l64f.c:88:9:bytes2sInt	32	static

@@ -1,0 +1,4 @@
+../Core/Src/adxl_345.c:15:6:adxl_write	24	static
+../Core/Src/adxl_345.c:26:6:adxl_read	16	static
+../Core/Src/adxl_345.c:35:6:initializeADXL345	8	static
+../Core/Src/adxl_345.c:43:7:adxl_get_acceleration	48	static

@@ -1,0 +1,8 @@
+../Core/Src/lan9252.c:18:10:Etc_Read_Reg	3
+../Core/Src/lan9252.c:45:6:Etc_Write_Reg	2
+../Core/Src/lan9252.c:68:10:Etc_Read_Reg_Wait	2
+../Core/Src/lan9252.c:92:6:Etc_Write_Reg_Wait	2
+../Core/Src/lan9252.c:115:6:Etc_Read_Fifo	5
+../Core/Src/lan9252.c:147:6:Etc_Write_Fifo	4
+../Core/Src/lan9252.c:175:6:etc_init	3
+../Core/Src/lan9252.c:202:9:etc_scan	6

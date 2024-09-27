@@ -1,0 +1,3 @@
+../Core/Src/pcap.c:25:6:pcap_init	32	static
+../Core/Src/pcap.c:54:17:pcap_scan	32	static
+../Core/Src/pcap.c:166:6:delay_us	16	static

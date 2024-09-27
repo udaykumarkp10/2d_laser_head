@@ -1,0 +1,3 @@
+../Core/Src/tmc6100.c:9:11:checkFaults	6
+../Core/Src/tmc6100.c:40:6:initializeTMC6100	3
+../Core/Src/tmc6100.c:77:10:read_register_tmc6100	2

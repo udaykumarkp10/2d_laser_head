@@ -1,0 +1,2 @@
+../Core/Src/moving_average.c:3:6:initMovingAverage	24	static
+../Core/Src/moving_average.c:12:6:updateMovingAverage	48	static
