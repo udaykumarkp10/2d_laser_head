@@ -40,7 +40,7 @@ bool Adxl345_init(void)
 	return true;
 }
 
-void getAcceleration(char axis) {
+int32_t getAcceleration(char axis) {
     uint8_t accel_data[6];  // Buffer to store raw acceleration data from the ADXL345
     int16_t raw_accel_x, raw_accel_y, raw_accel_z;  // Raw acceleration values for the X, Y, and Z axes
     int16_t raw_accel;  // Declare raw_accel to store the selected axis value
@@ -70,9 +70,5 @@ void getAcceleration(char axis) {
     // Convert the raw value to g and apply offset encoding to store as uint32_t
     int32_t accel_g = ((raw_accel * ADXL345_SCALE_FACTOR_4G) * ACCEL_SCALING_FACTOR);
 
-    TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
-    Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
-    Etc_Buffer_In.LANInt[1] = accel_g;
-    accelerometer_flag = false;
-    adxl_sent_count++;
+    return accel_g;
 }

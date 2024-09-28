@@ -116,24 +116,12 @@
 
 #define ACCEL_SCALING_FACTOR 10000
 
-extern uint16_t TxStatus;
-extern uint16_t etc_new_command;
-extern PcapErrorStatus Pcap_status;
-extern TMC4671_Controller tmc4671_controller;
-extern bool accelerometer_flag;
-
-
-//Test
-
-extern uint8_t adxl_sent_count;
-
-
 bool Adxl345_init(void);
 void adxl_write (uint8_t address, uint8_t value);
 void adxl_read(uint8_t address, uint8_t* data_rec);
 
 
-void getAcceleration(char axis);
+int32_t getAcceleration(char axis);
 
 
 #endif /* INC_ADXL345_H_ */

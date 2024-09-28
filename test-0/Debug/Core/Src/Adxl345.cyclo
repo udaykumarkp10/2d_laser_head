@@ -1,4 +1,4 @@
 ../Core/Src/Adxl345.c:15:6:adxl_write	1
 ../Core/Src/Adxl345.c:26:6:adxl_read	1
 ../Core/Src/Adxl345.c:35:6:Adxl345_init	1
-../Core/Src/Adxl345.c:43:6:getAcceleration	5
+../Core/Src/Adxl345.c:43:9:getAcceleration	5
