@@ -76,9 +76,9 @@ bool accelerometer_flag = false;
 // EtherCAt variables
 
 uint16_t etc_old_command = 0;
-uint32_t etc_old_data = 0;
+int32_t etc_old_data = 0;
 uint16_t etc_new_command = 0;
-uint32_t etc_new_data = 0;
+int32_t etc_new_data = 0;
 
 uint32_t etc_digital_output;
 
@@ -214,7 +214,7 @@ int main(void)
 	  /*-------------------------- RECEIVED DATA FROM ETHERCAT ----------------------------------------*/
 
 	  etc_new_command = (uint16_t)Etc_Buffer_Out.LANLong[0];
-	  etc_new_data =  Etc_Buffer_Out.LANLong[1];
+	  etc_new_data =  (int32_t) Etc_Buffer_Out.LANLong[1];
 
 	  if (((etc_new_command >= 0) && (etc_new_command <= 19)) || ((etc_new_command >= 100) && (etc_new_command <= 105))) {
 	      set_command_flag = true;
@@ -280,7 +280,7 @@ int main(void)
 
 				case 3:
 					TxData = etc_new_data;
-					if (((int32_t) etc_new_data <= -5000) || ((int32_t) etc_new_data >= 5000)) {//cannot be less than -5000um = -5mm or greater than 5000um = 5mm
+					if (( etc_new_data <= -5000) || ( etc_new_data >= 5000)) {//cannot be less than -5000um = -5mm or greater than 5000um = 5mm
 						setWrongCommandFlag(&tmc4671_controller, true);
 					} else {
 //						setZeroOffset(&tmc4671_controller, (int32_t) etc_new_data);
@@ -291,7 +291,7 @@ int main(void)
 
 				case 4:
 					TxData = etc_new_data;
-					if (((int32_t) etc_new_data <= 0) || ((int32_t) etc_new_data > 12000)) {//cannot be 0, negative number or more than 12000um = 12mm
+					if (( etc_new_data <= 0) || ( etc_new_data > 12000)) {//cannot be 0, negative number or more than 12000um = 12mm
 						setWrongCommandFlag(&tmc4671_controller, true);
 					} else {
 //						setSoftPositiveLimit(&tmc4671_controller, (int32_t) etc_new_data);
@@ -302,7 +302,7 @@ int main(void)
 
 				case 5:
 					TxData = etc_new_data;
-					if (((int32_t) etc_new_data >= 0) || ((int32_t) etc_new_data < -12000)) {	//cannot be 0, positive number or less than -12000um = -12mm
+					if (( etc_new_data >= 0) || ( etc_new_data < -12000)) {	//cannot be 0, positive number or less than -12000um = -12mm
 						setWrongCommandFlag(&tmc4671_controller, true);
 					} else {
 //						setSoftNegativeLimit(&tmc4671_controller, (int32_t) etc_new_data);
@@ -445,7 +445,7 @@ int main(void)
 
 				case 18:
 					TxData = etc_new_data;
-					if (((int32_t) etc_new_data < -12000) || ((int32_t) etc_new_data > 12000)) {//cannot be less than -12000um = -12mm or greater than 12000um = 12mm
+					if (( etc_new_data < -12000) || ( etc_new_data > 12000)) {//cannot be less than -12000um = -12mm or greater than 12000um = 12mm
 						setWrongCommandFlag(&tmc4671_controller, true);
 					} else {
 //						setAbsoluteTargetPosition(&tmc4671_controller, (int32_t) etc_new_data);
@@ -456,7 +456,7 @@ int main(void)
 
 				case 19:
 					TxData = etc_new_data;
-					if (((int32_t) etc_new_data < -12000) || ((int32_t) etc_new_data > 12000)) {//cannot be less than -12000um = -12mm or greater than 12000um = 12mm
+					if (( etc_new_data < -12000) || ( etc_new_data > 12000)) {//cannot be less than -12000um = -12mm or greater than 12000um = 12mm
 						setWrongCommandFlag(&tmc4671_controller, true);
 					} else {
 //						setIncrementalTargetPosition(&tmc4671_controller, (int32_t) etc_new_data);
@@ -551,9 +551,10 @@ int main(void)
 
 
 			case 54:
+				TxData = -80000;
 			//	int32_t soft_neg_limit = getSoftNegativeLimit(&tmc4671_controller);
 			//	TxData = (uint32_t) soft_neg_limit;  // Cast int32_t to uint32_t
-				TxData =  getSoftNegativeLimit(&tmc4671_controller);
+			//	TxData =  getSoftNegativeLimit(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -680,7 +681,7 @@ int main(void)
 			  get_Execution_count++;
 			  setWrongCommandFlag(&tmc4671_controller, false);
 			  int32_t Accel_x = getAcceleration('X');
-			  TxData = (uint32_t) Accel_x;
+			  TxData =  Accel_x;
 			  continuous_tx_flag = true;
 			  break;
 
@@ -688,14 +689,14 @@ int main(void)
 			  get_Execution_count++;
 			  setWrongCommandFlag(&tmc4671_controller, false);
 			  int32_t Accel_y = getAcceleration('Y');
-			  TxData = (uint32_t) Accel_y;
+			  TxData = Accel_y;
 			  continuous_tx_flag = true;
 			  break;
 
 		  case 303:
 			  setWrongCommandFlag(&tmc4671_controller, false);
 			  int32_t Accel_z = getAcceleration('Z');
-			  TxData = (uint32_t) Accel_z;
+			  TxData = Accel_z;
 			  continuous_tx_flag = true;
 			  break;
 		  }
@@ -721,7 +722,7 @@ int main(void)
 			  set_sent_count++;
 			  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 			  Etc_Buffer_In.LANLong[0] = ((uint32_t)TxStatus << 16) | (uint32_t)etc_new_command;
-			  Etc_Buffer_In.LANLong[1] = (int32_t)TxData;
+			  Etc_Buffer_In.LANLong[1] = TxData;
 			  continuous_tx_flag = true;  // Mark that data has been sent
 		  }
 	  }
@@ -730,14 +731,14 @@ int main(void)
 		  get_sent_count++;
 		  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 		  Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
-		  Etc_Buffer_In.LANLong[1] = TxData;
-		 // Etc_Buffer_In.LANInt[1] = TxData;
+		 // Etc_Buffer_In.LANLong[1] = TxData;
+		  Etc_Buffer_In.LANInt[1] = TxData;
 	  }
 
 	  if(accelerometer_flag) {
 		  adxl_sent_count++;
 		  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
-	//	  Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
+	       Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
 		  Etc_Buffer_In.LANLong[1] = (int32_t)TxData;
 	  }
   }
