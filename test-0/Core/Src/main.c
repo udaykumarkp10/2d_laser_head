@@ -93,7 +93,7 @@ uint16_t etc_analog_output_2;
 uint16_t etc_analog_output_3;
 
 // Send variables to EtherCAt
-uint32_t TxData = 0;
+int32_t TxData = 0;
 uint16_t TxStatus = 0;
 
 // Pcap variable of structure
@@ -214,7 +214,7 @@ int main(void)
 	  /*-------------------------- RECEIVED DATA FROM ETHERCAT ----------------------------------------*/
 
 	  etc_new_command = (uint16_t)Etc_Buffer_Out.LANLong[0];
-	  etc_new_data =  Etc_Buffer_Out.LANFloat[1];
+	  etc_new_data =  Etc_Buffer_Out.LANLong[1];
 
 	  if (((etc_new_command >= 0) && (etc_new_command <= 19)) || ((etc_new_command >= 100) && (etc_new_command <= 105))) {
 	      set_command_flag = true;
@@ -234,9 +234,9 @@ int main(void)
 		  accelerometer_flag = false;
 	  }
 
-	  etc_digital_output = Etc_Buffer_Out.LANFloat[5];
-	  etc_analog_output_0_1 = Etc_Buffer_Out.LANFloat[6];
-	  etc_analog_output_2_3 = Etc_Buffer_Out.LANFloat[7];
+	  etc_digital_output = Etc_Buffer_Out.LANLong[5];
+	  etc_analog_output_0_1 = Etc_Buffer_Out.LANLong[6];
+	  etc_analog_output_2_3 = Etc_Buffer_Out.LANLong[7];
 
 	  // Split the 32-bit floats into two 16-bit outputs each
 	  etc_analog_output_0 = (uint16_t)(((uint32_t)etc_analog_output_0_1) & 0xFFFF);
@@ -520,13 +520,14 @@ int main(void)
 	  } else if (get_command_flag) {
 		  switch(etc_new_command) {
 			case 50:
+				TxData = (uint32_t)1000;
 				//TxData = getEncoderResolution(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
 
 			case 51:
-				TxData = getEncoderDirection(&tmc4671_controller);
+				//TxData = getEncoderDirection(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -534,13 +535,16 @@ int main(void)
 			case 52:
 				// int32_t zero_offset = getZeroOffset(&tmc4671_controller);
 				// TxData = (uint32_t) zero_offset;  // Cast int32_t to uint32_t
+				 TxData = getZeroOffset(&tmc4671_controller);
 				 setWrongCommandFlag(&tmc4671_controller, false);
 				 continuous_tx_flag = true;
 				 break;
 
 			case 53:
+				TxData = -1000;
 			//	int32_t soft_pos_limit = getSoftPositiveLimit(&tmc4671_controller);
 			//	TxData = (uint32_t) soft_pos_limit;  // Cast int32_t to uint32_t
+				//TxData = getSoftPositiveLimit(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -549,6 +553,7 @@ int main(void)
 			case 54:
 			//	int32_t soft_neg_limit = getSoftNegativeLimit(&tmc4671_controller);
 			//	TxData = (uint32_t) soft_neg_limit;  // Cast int32_t to uint32_t
+				TxData =  getSoftNegativeLimit(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -628,6 +633,7 @@ int main(void)
 			case 67:
 			//	int32_t target_position = getTargetPosition(&tmc4671_controller);
 			//	TxData = (uint32_t) target_position;  // Cast int32_t to uint32_t
+				TxData = getTargetPosition(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -635,6 +641,7 @@ int main(void)
 			case 68:
 			//	int32_t actual_position = getActualPosition(&tmc4671_controller);
 			//	TxData = (uint32_t) actual_position;  // Cast int32_t to uint32_t
+				TxData = getActualPosition(&tmc4671_controller);
 				setWrongCommandFlag(&tmc4671_controller, false);
 				continuous_tx_flag = true;
 				break;
@@ -714,7 +721,7 @@ int main(void)
 			  set_sent_count++;
 			  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 			  Etc_Buffer_In.LANLong[0] = ((uint32_t)TxStatus << 16) | (uint32_t)etc_new_command;
-			  Etc_Buffer_In.LANLong[1] = TxData;
+			  Etc_Buffer_In.LANLong[1] = (int32_t)TxData;
 			  continuous_tx_flag = true;  // Mark that data has been sent
 		  }
 	  }
@@ -724,13 +731,14 @@ int main(void)
 		  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
 		  Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
 		  Etc_Buffer_In.LANLong[1] = TxData;
+		 // Etc_Buffer_In.LANInt[1] = TxData;
 	  }
 
 	  if(accelerometer_flag) {
 		  adxl_sent_count++;
 		  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
-		  Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
-		  Etc_Buffer_In.LANLong[1] = TxData;
+	//	  Etc_Buffer_In.LANLong[0] = ((uint32_t) TxStatus << 16) | (uint32_t) etc_new_command;
+		  Etc_Buffer_In.LANLong[1] = (int32_t)TxData;
 	  }
   }
   /* USER CODE END 3 */

@@ -179,8 +179,8 @@ typedef union{
 typedef union{
 	uint8_t LANByte[32];
 	uint32_t LANLong[8];
-	int32_t LANInt[8];
 	float LANFloat[8];
+	int32_t LANInt[8];
 } PROCBUFFER;
 
 extern PROCBUFFER Etc_Buffer_Out;
