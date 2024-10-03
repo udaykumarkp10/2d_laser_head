@@ -72,6 +72,7 @@ bool set_command_flag = false;
 bool get_command_flag = false;
 bool continuous_tx_flag = false;
 bool accelerometer_flag = false;
+bool command_processed = false;
 
 // EtherCAt variables
 
@@ -252,6 +253,7 @@ int main(void)
 				case 0:
 					TxData = etc_new_data;
 					continuous_tx_flag = false;
+					command_processed = true;
 					break;
 
 				case 1:
@@ -262,8 +264,9 @@ int main(void)
 					} else {
 //						setEncoderResolution(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 2:
@@ -274,8 +277,9 @@ int main(void)
 					} else {
 //						setEncoderDirection(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 3:
@@ -285,8 +289,9 @@ int main(void)
 					} else {
 //						setZeroOffset(&tmc4671_controller, (int32_t) etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 4:
@@ -296,8 +301,9 @@ int main(void)
 					} else {
 //						setSoftPositiveLimit(&tmc4671_controller, (int32_t) etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 5:
@@ -307,8 +313,9 @@ int main(void)
 					} else {
 //						setSoftNegativeLimit(&tmc4671_controller, (int32_t) etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 6:
@@ -318,8 +325,9 @@ int main(void)
 					} else {
 //						setMaxPositionError(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 7:
@@ -329,8 +337,9 @@ int main(void)
 					} else {
 //						setCurrentLimitHoming(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 8:
@@ -340,8 +349,9 @@ int main(void)
 					} else {
 //						setCurrentLimitServo(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 9:
@@ -351,8 +361,9 @@ int main(void)
 					} else {
 //						setVoltageLimitHoming(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 10:
@@ -362,8 +373,9 @@ int main(void)
 					} else {
 //						setVelocityLimitServo(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 11:
@@ -373,8 +385,9 @@ int main(void)
 					} else {
 //						setTorqueLimitServo(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 12:
@@ -384,8 +397,9 @@ int main(void)
 					} else {
 //						setCurrentGainP(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 13:
@@ -395,8 +409,9 @@ int main(void)
 					} else {
 //						setCurrentGainI(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 14:
@@ -406,8 +421,9 @@ int main(void)
 					} else {
 //						setVelocityGainP(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 15:
@@ -417,8 +433,9 @@ int main(void)
 					} else {
 //						setVelocityGainI(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 16:
@@ -428,8 +445,9 @@ int main(void)
 					} else {
 //						setPositionGainP(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 17:
@@ -439,8 +457,9 @@ int main(void)
 					} else {
 //						setPositionGainI(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 18:
@@ -450,8 +469,9 @@ int main(void)
 					} else {
 //						setAbsoluteTargetPosition(&tmc4671_controller, (int32_t) etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 19:
@@ -461,8 +481,9 @@ int main(void)
 					} else {
 //						setIncrementalTargetPosition(&tmc4671_controller, (int32_t) etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 100:
@@ -472,8 +493,9 @@ int main(void)
 					} else {
 //						servoEnable(&tmc4671_controller, etc_new_data);
 //						setWrongCommandFlag(&tmc4671_controller, false);
+						continuous_tx_flag = false;
+						command_processed = true;
 					}
-					continuous_tx_flag = false;
 					break;
 
 				case 101:
@@ -481,6 +503,7 @@ int main(void)
 //					startHoming(&tmc4671_controller);
 					setWrongCommandFlag(&tmc4671_controller, false);
 					continuous_tx_flag = false;
+					command_processed = true;
 					break;
 
 				case 102:
@@ -488,6 +511,7 @@ int main(void)
 //					clearFaults(&tmc4671_controller);
 					setWrongCommandFlag(&tmc4671_controller, false);
 					continuous_tx_flag = false;
+					command_processed = true;
 					break;
 
 				case 103:
@@ -495,6 +519,7 @@ int main(void)
 					//saveParameters(&tmc4671_controller);
 					setWrongCommandFlag(&tmc4671_controller, false);
 					continuous_tx_flag = false;
+					command_processed = true;
 					break;
 
 				case 104:
@@ -502,6 +527,7 @@ int main(void)
 					//loadDefaultParameters(&tmc4671_controller);
 					setWrongCommandFlag(&tmc4671_controller, false);
 					continuous_tx_flag = false;
+					command_processed = true;
 					break;
 
 				case 105:
@@ -509,6 +535,7 @@ int main(void)
 					//stopMovement(&tmc4671_controller);
 					setWrongCommandFlag(&tmc4671_controller, false);
 					continuous_tx_flag = false;
+					command_processed = true;
 					break;
 
 				default:
@@ -718,10 +745,10 @@ int main(void)
 	  /*---------------------------TRANSMIT DATA TO ETHERCAT ---------------------------------------------*/
 
 	  if (set_command_flag) {
-		  if (!continuous_tx_flag) {
+		  if (!continuous_tx_flag && command_processed) {
 			  set_sent_count++;
 			  TxStatus = getEventStatusWord(&tmc4671_controller, &Pcap_status);
-			  Etc_Buffer_In.LANLong[0] = ((uint32_t)TxStatus << 16) | (uint32_t)etc_new_command;
+			  Etc_Buffer_In.LANLong[0] = ((uint32_t)TxStatus << 16) | (uint32_t)etc_old_command;
 			  Etc_Buffer_In.LANLong[1] = TxData;
 			  continuous_tx_flag = true;  // Mark that data has been sent
 		  }
